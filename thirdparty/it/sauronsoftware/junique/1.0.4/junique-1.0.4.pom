@@ -1,0 +1,202 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>it.sauronsoftware</groupId>
+    <artifactId>junique</artifactId>
+    <version>1.0.4</version>
+    <packaging>jar</packaging>
+
+    <name>it.sauronsoftware.junique</name>
+    <url>https://github.com/poolborges/it.sauronsoftware.junique</url>
+    <description>
+        The JUnique library can be used to prevent a user to run at the same time more instances of the same Java application.
+        JUnique implements locks and communication channels shared between all the JVM instances launched by the same user. 
+        See the documentation for more details.
+        for of http://www.sauronsoftware.it/projects/junique/
+    </description>
+    <licenses>
+        <license>
+            <name>GNU Lesser General Public License, version 2.1</name>
+            <url>http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <email>poolborges[at]gmail.com</email>
+            <name>Paulo Borges</name>
+            <url>https://github.com/poolborges</url>
+            <id>poolborges</id>
+        </developer>
+    </developers>
+
+    <issueManagement>
+        <url>https://github.com/poolborges/it.sauronsoftware.junique/issues</url>
+        <system>GitHub Issues</system>
+    </issueManagement>
+    
+    <scm>
+        <url>https://github.com/poolborges/it.sauronsoftware.junique</url>
+        <connection>scm:git:git://github.com/poolborges/it.sauronsoftware.junique.git</connection>
+        <developerConnection>scm:git:git@github.com:poolborges/it.sauronsoftware.junique.git</developerConnection>
+    </scm>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <github.global.server>github</github.global.server>
+    </properties>
+    
+    <distributionManagement>
+            <repository>
+                <id>local-repository</id>
+                <name>local Repository</name>
+                <url>file://M:\DISCO_D\NetBeansProjects\maven\thirdparty</url>
+            </repository>
+        </distributionManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+  
+    <build>
+        
+        <plugins><!-- -->
+            <plugin>
+                <groupId>com.github.github</groupId>
+                <artifactId>downloads-maven-plugin</artifactId>
+                <version>0.6</version>
+                <configuration>
+                    <description>Fork ${project.name} build of the ${project.version} release</description>
+                    <override>true</override>
+                    <includeAttached>true</includeAttached>
+                    <server>github</server>
+                </configuration>
+                <!-- mvn clean install ghDownloads:upload -->
+                <!-- para não ser executado automaticamente
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>upload</goal>
+                        </goals>
+                        <phase>install</phase>
+                    </execution>
+                </executions>
+                -->
+            </plugin>
+            <plugin>
+                <groupId>com.github.github</groupId>
+                <artifactId>site-maven-plugin</artifactId>
+                <version>0.7</version>
+                <configuration>
+                    <message>Building site for ${project.version}</message>
+                    <server>github</server>
+                </configuration>
+                <!-- mvn site -->
+                <!-- -->
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>site</goal>
+                        </goals>
+                        <phase>site</phase>
+                    </execution>
+                </executions>
+                
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.0</version>
+                <configuration>
+                    <reportPlugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-project-info-reports-plugin</artifactId>
+                            <version>2.2</version>
+                            <configuration>
+                                <dependencyDetailsEnabled>true</dependencyDetailsEnabled>
+                                <dependencyLocationsEnabled>true</dependencyLocationsEnabled>
+                            </configuration>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-javadoc-plugin</artifactId>
+                            <configuration>
+                                <overview>${basedir}/src/main/config/package.html</overview>
+                                <doctitle>${project.name} ${project.version}</doctitle>
+                                <windowtitle>${project.name} ${project.version}</windowtitle>
+                            </configuration> 
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-surefire-report-plugin</artifactId>
+                            <version>2.6</version>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-checkstyle-plugin</artifactId>
+                            <version>2.6</version>
+                        </plugin>
+                    </reportPlugins>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.8.1</version>
+                <configuration>
+                    <overview>${basedir}/src/main/config/package.html</overview>
+                    <doctitle>${project.name} ${project.version}</doctitle>
+                    <windowtitle>${project.name} ${project.version}</windowtitle>
+                </configuration> 
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.1.2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
